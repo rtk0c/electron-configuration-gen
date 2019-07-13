@@ -7,13 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
   for(const row of periodicTable.children) {
     for(const cell of row.children) {
       const element = cell.children[0];
-      const atomicNumber = parseInt(element.children[0].innerHTML);
+      if(!element) {
+        continue;
+      }
+      const details = element.children[2];
 
-      const configuration = textAbbriviatedConfiguration(atomicNumber);
-      const node = document.createElement('div');
-      node.innerHTML = configuration;
-      node.classList.add('electron-config');
-      element.insertBefore(node, element.childNodes[0]);
+      const atomicNumber = parseInt(element.children[0].innerHTML);
+      const configurations = textAbbriviatedConfiguration(atomicNumber);
+      details.appendChild(document.createElement('br'));
+      details.appendChild(document.createTextNode(configurations))
     }
   }
 });

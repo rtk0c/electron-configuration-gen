@@ -51,12 +51,14 @@ for (const gas of nobleGases) {
 
 function abbriviatedConfiguration(atomicNumber) {
   let electrons = atomicNumber;
-  for (let i = nobleGases.length - 1; i >= 0; ++i) {
+  for (let i = nobleGases.length - 1; i >= 0; --i) {
     const gas = nobleGases[i];
     const am = gas.atomicNumber;
     if (electrons > am) {
       electrons -= am;
-      return compute(electrons, gas.lastSublevelIdx + 1).unshift(`[${nobleGases.symbol}]`);
+      const r = compute(electrons, gas.lastSublevelIdx + 1);
+      r.unshift(`[${gas.symbol}]`)
+      return r;
     }
   }
   // Anything is or below Helium (basically H and He)
