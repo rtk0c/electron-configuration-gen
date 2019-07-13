@@ -1,0 +1,27 @@
+{
+  "name": "electron-configuration-gen",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rtk0c/electron-configuration-gen.git"
+  },
+  "author": "hnOsmium0001",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rtk0c/electron-configuration-gen/issues"
+  },
+  "homepage": "https://github.com/rtk0c/electron-configuration-gen#readme",
+  "devDependencies": {
+    "css-loader": "^2.1.1",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.31.0",
+    "webpack-cli": "^3.3.2"
+  }
+}
