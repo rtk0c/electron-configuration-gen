@@ -10,6 +10,13 @@ function execute(commands) {
   });
 }
 
+function log(msg) {
+  exec(`echo "${msg}"`, (err, stdout, stderr) => {
+    if (stdout) process.stdout.write(stdout);
+    if (stderr) process.stderr.write(stderr);
+  });
+}
+
 const REPO_URL = 'https://github.com/rtk0c/electron-configuration-gen.git';
 
 module.exports = env => {
@@ -59,10 +66,9 @@ module.exports = env => {
         apply: (compiler) => {
           compiler.hooks.afterEmit.tap('AfterEmitPlugin', (compilation) => {
             if (!env) {
-              process.stdout.write('echo "Environment was not specified. Add --env.commit to commit"');
+              log('Environment was not specified. Add --env.commit to commit');
               return;
             }
-
             if (env.commit) {
               execute([`bash ./build.sh "${REPO_URL}" "${new Date().toString()}"`]);
             }

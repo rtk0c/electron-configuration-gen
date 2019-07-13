@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/rtk0c/electron-configuration-gen.git"
   },
-  "author": "hnOsmium0001",
+  "author": "rtk0c",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/rtk0c/electron-configuration-gen/issues"

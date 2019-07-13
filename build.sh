@@ -55,15 +55,15 @@ if [ ! -d ".git" ]; then
   fi
 fi
 
+git add *
 git diff-index --quiet HEAD --
 if [ $? = 0 ]; then
+  echo "No content chagned"
+else
   echo "Content changed. Committing..."
-  git add *
   git commit -m "Build $([[ ! -z $2 ]] && $2 || date)"
   git push origin gh-pages
   echo "Committed"
-else 
-  echo "No content chagned"
 fi
 
 terminate 0
