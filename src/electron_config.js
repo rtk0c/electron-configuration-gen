@@ -14,53 +14,53 @@ const elements = [
 ];
 
 function compute(electrons, startSublevelIdx) {
-    const configurations = [];
-    let i = startSublevelIdx;
-    while(electrons > 0) {
-        const filling = fillingOrder[i];
-        const sublevels = level2sublevels[filling.charAt(1)]
+  const configurations = [];
+  let i = startSublevelIdx;
+  while (electrons > 0) {
+    const filling = fillingOrder[i];
+    const sublevels = level2sublevels[filling.charAt(1)]
 
-        // Based on the Pauli Exclusion Principle, each sublevel can hold 2 electrons maximum
-        const placedElectrons = electrons - Math.max(electrons - sublevels * 2, 0);
-        electrons -= placedElectrons;
-        configurations.push(filling + placedElectrons);
-        ++i;
-    }
-    return configurations;
+    // Based on the Pauli Exclusion Principle, each sublevel can hold 2 electrons maximum
+    const placedElectrons = electrons - Math.max(electrons - sublevels * 2, 0);
+    electrons -= placedElectrons;
+    configurations.push(filling + placedElectrons);
+    ++i;
+  }
+  return configurations;
 }
 
 function unabbriviatedConfiguration(atomicNumber) {
-    return compute(atomicNumber, 0);
+  return compute(atomicNumber, 0);
 }
 
 const nobleGases = [
-    { symbol: "He", atomicNumber: 2 },
-    { symbol: "Ne", atomicNumber: 10 },
-    { symbol: "Ar", atomicNumber: 18 },
-    { symbol: "Kr", atomicNumber: 36 },
-    { symbol: "Xe", atomicNumber: 54 },
-    { symbol: "Rn", atomicNumber: 86 },
-    { symbol: "Og", atomicNumber: 118 },
+  { symbol: "He", atomicNumber: 2 },
+  { symbol: "Ne", atomicNumber: 10 },
+  { symbol: "Ar", atomicNumber: 18 },
+  { symbol: "Kr", atomicNumber: 36 },
+  { symbol: "Xe", atomicNumber: 54 },
+  { symbol: "Rn", atomicNumber: 86 },
+  { symbol: "Og", atomicNumber: 118 },
 ];
 // Calculate additional information about noble gases
-for(const gas of nobleGases) {
-    const configuration = unabbriviatedConfiguration(gas.atomicNumber);
-    gas.lastSublevel = configuration[configuration.length - 1].substring(0, 2);
-    gas.lastSublevelIdx = fillingOrder.indexOf(gas.lastSublevel);
+for (const gas of nobleGases) {
+  const configuration = unabbriviatedConfiguration(gas.atomicNumber);
+  gas.lastSublevel = configuration[configuration.length - 1].substring(0, 2);
+  gas.lastSublevelIdx = fillingOrder.indexOf(gas.lastSublevel);
 }
 
 function abbriviatedConfiguration(atomicNumber) {
-    let electrons = atomicNumber;
-    for(let i = nobleGases.length - 1; i >= 0; ++i) {
-        const gas = nobleGases[i];
-        const am = gas.atomicNumber;
-        if(electrons > am) {
-            electrons -= am;
-            return compute(electrons, gas.lastSublevelIdx + 1).unshift(`[${nobleGases.symbol}]`);
-        }
+  let electrons = atomicNumber;
+  for (let i = nobleGases.length - 1; i >= 0; ++i) {
+    const gas = nobleGases[i];
+    const am = gas.atomicNumber;
+    if (electrons > am) {
+      electrons -= am;
+      return compute(electrons, gas.lastSublevelIdx + 1).unshift(`[${nobleGases.symbol}]`);
     }
-    // Anything is or below Helium (basically H and He)
-    return unabbriviatedConfiguration(atomicNumber);
+  }
+  // Anything is or below Helium (basically H and He)
+  return unabbriviatedConfiguration(atomicNumber);
 }
 
 const textUnabbriviatedConfiguration = atomicNumber => unabbriviatedConfiguration(atomicNumber).join(' ');

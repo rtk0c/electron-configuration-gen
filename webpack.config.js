@@ -23,21 +23,43 @@ module.exports = env => {
       rules: [
         {
           test: /\.css$/,
-          use: ['style-loader', 'css-loader']
+          use: [
+            {
+              loader: 'style-loader'
+            },
+            {
+              loader: 'css-loader'
+            }
+          ]
         },
         {
           test: /\.less$/,
-          loader: 'less-loader'
+          use: [
+            {
+              loader: 'style-loader'
+            },
+            {
+              loader: 'css-loader'
+            },
+            {
+              loader: 'less-loader'
+            }
+          ]
         },
       ]
     },
     plugins: [
-      new HtmlWebpackPlugin(),
+      new HtmlWebpackPlugin({
+        template: 'src/periodic_table.html',
+        inject: 'body',
+        title: 'Electron Configuration on Periodic Table',
+        filename: 'index.html'
+      }),
       {
         apply: (compiler) => {
           compiler.hooks.afterEmit.tap('AfterEmitPlugin', (compilation) => {
             if (!env) {
-              execute(['echo "Environment was not specified. Add --env.commit to commit"']);
+              process.stdout.write('echo "Environment was not specified. Add --env.commit to commit"');
               return;
             }
 
