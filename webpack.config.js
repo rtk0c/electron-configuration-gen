@@ -10,7 +10,7 @@ function execute(commands) {
   });
 }
 
-const REPO_URL = 'https://github.com/hnOsmium0001/DEMO-Webpack.git';
+const REPO_URL = 'https://github.com/rtk0c/electron-configuration-gen.git';
 
 module.exports = env => {
   return {
