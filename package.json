@@ -19,7 +19,7 @@
   "homepage": "https://github.com/rtk0c/electron-configuration-gen#readme",
   "devDependencies": {
     "css-loader": "^2.1.1",
-    "html-webpack-plugin": "^3.2.0",
+    "html-webpack-plugin": "^5.5.0",
     "less-loader": "^5.0.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.31.0",
